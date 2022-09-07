@@ -12,38 +12,39 @@ let taskscompleted = document.querySelector(".tasks-completed span");
 window.onload = function() { 
     theInput.focus();
 };
-// fun compare 
-function comparing (a) {
-    let cnt = 0 ; 
-    for (let i = 0 ; i<a.length ; i++) {
-        if (a[i]===theInput.value) { 
-            cnt++ ;
-            break; 
-        }
-    } 
-    if (cnt === 1) { 
-        return 7 ;  
-    }
-    else { 
-        return true ; 
-    }
+
+
+
+let textChecker = {'a7a':true}; 
+// is the task written before 
+function writtenBefore (taskText) {
+        if (textChecker[taskText] === true) { 
+            return false;
+        
+    return true;
 }
 // Adding the task 
-let textChecker = []; 
-let cnt = 0 ; 
+
+
+
+
+
+
+
+// on add Clicked 
 theAddButton.onclick = function() {
     // if input is Empty 
     if (theInput.value === "" ) { 
         swal("Your Text is empty !" ,"try add text and try again.." , "error") ;
-        return 0 ;
+        console.log("try add text and try again");
+        return 0;
     }
-    if (comparing(textChecker) === 7) { 
+    if (writtenBefore(theInput.textContent) === true) { 
         swal("You Write this Task Before !" ,"try add new task and try again.." , "warning") ;
-    }
+    }   
     else { 
-        textChecker[cnt] = theInput.value ;
-        cnt++ ; 
-        console.log(textChecker , cnt);
+        textChecker[theInput.value] = true ;
+        console.log(textChecker );
         // Remove no tasks messages 
         noTasksmessages.remove();
 
@@ -83,6 +84,8 @@ theAddButton.onclick = function() {
     }
 };
 
+
+
 document.addEventListener('click' , function(eventt) {
 // Delete Task 
 if (eventt.target.className == 'delete') { 
@@ -96,10 +99,7 @@ if (eventt.target.classList.contains('task-box')){
 }) ;
 
 
-
-
-
-
+}
 
 
 
